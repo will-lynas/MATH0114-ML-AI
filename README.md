@@ -1,15 +1,3 @@
-# uv-notebook
+# MATH0114 - Mathematics for Machine Learning and Artificial Intelligence
 
-A template repo for a python notebook using uv
-
-## Usage
-
-- Make a repo using this template
-- `uv sync`
-- `cursor .`
-- Run cell and choose `.venv` for python interpreter
-
-## Optional
-
-- Change `README.md`
-- Rename project in `pyproject.toml`
+My notes, visualisations, and experiments for UCL's MATH0114 module.
