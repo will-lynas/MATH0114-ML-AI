@@ -138,13 +138,11 @@ def _(mo, softmax_answer):
     return
 
 
-app._unparsable_cell(
-    r"""
-    _pairs = [(f\"a{i}\", value) for i, value in enumerate(softmax_values)]
-    softmax_answer = max(_pairs, keyhlambda x: x[1])[0]
-    """,
-    name="_"
-)
+@app.cell
+def _(softmax_values):
+    _pairs = [(f"a{i}", value) for i, value in enumerate(softmax_values)]
+    softmax_answer = max(_pairs, key=lambda x: x[1])[0]
+    return (softmax_answer,)
 
 
 @app.cell(column=4)
