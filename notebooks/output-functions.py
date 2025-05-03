@@ -51,6 +51,23 @@ def _(plt, sigmoid, slider_values, sliders):
 
 
 @app.cell
+def _(plt, slider_values, sliders, softmax):
+    plt.ylim((0, 1))
+    plt.bar([f"a{i}" for i in range(len(sliders))],
+            softmax(slider_values)
+           )
+    return
+
+
+@app.cell
+def _(np):
+    def softmax(x):
+        exp_x = np.exp(x - np.max(x))  # Subtract max for numerical stability
+        return exp_x / np.sum(exp_x)
+    return (softmax,)
+
+
+@app.cell
 def _(np):
     def sigmoid(x):
         return 1 / (1 + np.exp(-x))
