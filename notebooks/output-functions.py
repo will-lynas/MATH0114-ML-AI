@@ -27,9 +27,9 @@ def _():
 
 @app.cell
 def _(max_val, mo):
-    start_values = [1,5,2,3]
+    start_values = [3,-1,5,-4]
     sliders = mo.ui.array([
-        mo.ui.slider(0, max_val, label=f"a{i}", value=value, step=0.1)
+        mo.ui.slider(-max_val, max_val, label=f"a{i}", value=value, step=0.1)
         for i,value in enumerate(start_values)
     ])
     return (sliders,)
@@ -43,7 +43,8 @@ def _(mo, sliders):
 
 @app.cell
 def _(max_val, plt, sliders):
-    plt.ylim(top=max_val)
+    plt.ylim((-max_val, max_val))
+    plt.axhline(y=0, color='black', alpha=0.4, linewidth=1)
     plt.bar([f"a{i}" for i in range(len(sliders))],
             [slider.value for slider in sliders]
            )
