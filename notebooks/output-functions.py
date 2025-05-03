@@ -71,6 +71,7 @@ def _(plt, sigmoid, slider_values, sliders):
     sigmoid_values = sigmoid(slider_values)
 
     plt.ylim((0, 1))
+    plt.axhline(y=0.5, color='red', alpha=0.4, linewidth=1)
     plt.bar([f"a{i}" for i in range(len(sliders))],
             sigmoid_values
            )
