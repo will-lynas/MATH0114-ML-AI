@@ -10,20 +10,26 @@
         "position": null
       },
       {
-        "position": [
-          4,
-          1,
-          2,
-          2
-        ]
+        "position": null
+      },
+      {
+        "position": null
       },
       {
         "position": null
       },
       {
         "position": [
-          2,
-          4,
+          0,
+          0,
+          3,
+          8
+        ]
+      },
+      {
+        "position": [
+          0,
+          8,
           6,
           22
         ]
