@@ -98,7 +98,8 @@ def main() -> None:
 
     # Export notebooks sequentially
     for nb in all_notebooks:
-        export_html_wasm(nb, args.output_dir, as_app=nb.startswith("apps/"))
+        # export_html_wasm(nb, args.output_dir, as_app=nb.startswith("apps/"))
+        export_html_wasm(nb, args.output_dir, as_app=True)
 
     # Generate index only if all exports succeeded
     generate_index(all_notebooks, args.output_dir)
