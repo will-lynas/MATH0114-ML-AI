@@ -58,24 +58,22 @@ def _(max_val, plt, sliders):
 
 
 @app.cell
-def _(plt, slider_values, sliders, softmax):
+def _(plt, sliders, softmax_values):
     plt.ylim((0, 1))
     plt.bar([f"a{i}" for i in range(len(sliders))],
-            softmax(slider_values)
+            softmax_values
            )
     return
 
 
 @app.cell
-def _(plt, sigmoid, slider_values, sliders):
-    sigmoid_values = sigmoid(slider_values)
-
+def _(plt, sigmoid_values, sliders):
     plt.ylim((0, 1))
     plt.axhline(y=0.5, color='red', alpha=0.4, linewidth=1)
     plt.bar([f"a{i}" for i in range(len(sliders))],
             sigmoid_values
            )
-    return (sigmoid_values,)
+    return
 
 
 @app.cell(column=3)
@@ -122,6 +120,33 @@ def _(sigmoid_values):
     return (sigmoid_result,)
 
 
+@app.cell
+def _(mo, softmax_answer):
+    mo.md(
+        f"""
+    ## Softmax
+
+    Here each output is passed through an exponential function then normalised so that the sum of all outputs is 1.
+
+    This is suitable for classification problems with mutually exclusive classes, where the goal is to pick a single class.
+
+    We can just take the largest value as the "selection" of the network.
+
+    Here, that's **{softmax_answer}**
+    """
+    )
+    return
+
+
+app._unparsable_cell(
+    r"""
+    _pairs = [(f\"a{i}\", value) for i, value in enumerate(softmax_values)]
+    softmax_answer = max(_pairs, keyhlambda x: x[1])[0]
+    """,
+    name="_"
+)
+
+
 @app.cell(column=4)
 def _(np):
     def softmax(x):
@@ -131,16 +156,28 @@ def _(np):
 
 
 @app.cell
+def _(np):
+    def sigmoid(x):
+        return 1 / (1 + np.exp(-x))
+    return (sigmoid,)
+
+
+@app.cell
 def _(np, sliders):
     slider_values = np.array([slider.value for slider in sliders])
     return (slider_values,)
 
 
 @app.cell
-def _(np):
-    def sigmoid(x):
-        return 1 / (1 + np.exp(-x))
-    return (sigmoid,)
+def _(sigmoid, slider_values):
+    sigmoid_values = sigmoid(slider_values)
+    return (sigmoid_values,)
+
+
+@app.cell
+def _(slider_values, softmax):
+    softmax_values = softmax(slider_values)
+    return (softmax_values,)
 
 
 if __name__ == "__main__":
