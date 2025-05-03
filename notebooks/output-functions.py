@@ -74,7 +74,7 @@ def _(plt, sigmoid, slider_values, sliders):
     plt.bar([f"a{i}" for i in range(len(sliders))],
             sigmoid_values
            )
-    return
+    return (sigmoid_values,)
 
 
 @app.cell(column=3)
@@ -83,10 +83,42 @@ def _(mo):
         r"""
     ## Activations
 
-    This shows the raw activations of the ouput layer (the slider values) before any output/activation function has been applied.
+    This shows the raw activations of the ouput layer (the slider values) before any activation function has been applied.
     """
     )
     return
+
+
+@app.cell
+def _(mo, sigmoid_result):
+    mo.md(
+        f"""
+    ## Sigmoid
+
+    Here, each activation is passed through a sigmoid function that maps its output to value between 0 and 1.
+
+    The output of a neuron only depends on its own activation, and is independent of the activations of the other neurons.
+
+    This is useful for a network that is making multiple independent binary classifications. E.g. one neuron could answer the question "Does this image contain a dog?" and another might answer the question "Does this image contain a tree?".
+
+    Since the outputs are between 0 and 1, we can interpret each ouput as the probability of a positive classification. E.g. take >0.5 as a "yes" and "no" otherwise.
+
+    In this case the classifications would be:
+
+    {sigmoid_result}
+    """
+    )
+    return
+
+
+@app.cell
+def _(sigmoid_values):
+    sigmoid_answers = [(f"a{i}",
+                        "Yes ✅" if value > 0.5 else "No ❌" )
+                       for (i,value) in enumerate(sigmoid_values)]
+    sigmoid_result = "\n".join(f"* {answer[0]}: **{answer[1]}**"
+                              for answer in sigmoid_answers)
+    return (sigmoid_result,)
 
 
 @app.cell(column=4)
