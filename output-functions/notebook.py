@@ -26,7 +26,7 @@ def _():
 def _(max_val, mo):
     start_values = [1,5,2,3]
     sliders = mo.ui.array([
-        mo.ui.slider(0, max_val, label=f"a{i}", value=value)
+        mo.ui.slider(0, max_val, label=f"a{i}", value=value, step=0.1)
         for i,value in enumerate(start_values)
     ])
     return (sliders,)
@@ -35,7 +35,6 @@ def _(max_val, mo):
 @app.cell
 def _(mo, sliders):
     mo.vstack(sliders)
-
     return
 
 
