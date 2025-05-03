@@ -9,18 +9,6 @@ app = marimo.App(
 
 @app.cell
 def _():
-    import matplotlib.pyplot as plt
-    return (plt,)
-
-
-@app.cell
-def _():
-    import marimo as mo
-    return (mo,)
-
-
-@app.cell
-def _():
     max_val = 5
     return (max_val,)
 
@@ -49,6 +37,48 @@ def _(max_val, plt, sliders):
             [slider.value for slider in sliders]
            )
     return
+
+
+@app.cell
+def _(plt, sigmoid, slider_values, sliders):
+    sigmoid_values = sigmoid(slider_values)
+
+    plt.ylim((0, 1))
+    plt.bar([f"a{i}" for i in range(len(sliders))],
+            sigmoid_values
+           )
+    return
+
+
+@app.cell
+def _(np):
+    def sigmoid(x):
+        return 1 / (1 + np.exp(-x))
+    return (sigmoid,)
+
+
+@app.cell
+def _(np, sliders):
+    slider_values = np.array([slider.value for slider in sliders])
+    return (slider_values,)
+
+
+@app.cell
+def _():
+    import numpy as np
+    return (np,)
+
+
+@app.cell
+def _():
+    import marimo as mo
+    return (mo,)
+
+
+@app.cell
+def _():
+    import matplotlib.pyplot as plt
+    return (plt,)
 
 
 if __name__ == "__main__":
