@@ -27,13 +27,6 @@ def _(max_val, mo):
     ])
     return (sliders,)
 
-
-@app.cell
-def _(mo, sliders):
-    mo.vstack(sliders)
-    return
-
-
 @app.cell
 def _(mo):
     mo.md(
@@ -60,7 +53,10 @@ def _(alt, max_val, mo, sliders):
         return chart + rule
 
     activation_chart = create_activation_chart()
-    mo.ui.altair_chart(activation_chart)
+    mo.hstack([
+        mo.ui.altair_chart(activation_chart),
+        mo.vstack(sliders)
+    ])
     return
 
 @app.cell
@@ -96,7 +92,7 @@ def _(mo, sigmoid_result):
     return
 
 @app.cell
-def _(alt, mo, sigmoid_values):
+def _(alt, mo, sigmoid_values, sliders):
     def create_sigmoid_chart():
         data = [{"name": f"a{i}", "value": value} for i, value in enumerate(sigmoid_values)]
         chart = alt.Chart(alt.Data(values=data)).mark_bar().encode(
@@ -109,7 +105,10 @@ def _(alt, mo, sigmoid_values):
         return chart + rule
 
     sigmoid_chart = create_sigmoid_chart()
-    mo.ui.altair_chart(sigmoid_chart)
+    mo.hstack([
+        mo.ui.altair_chart(sigmoid_chart),
+        mo.vstack(sliders)
+    ])
     return
 
 @app.cell
@@ -133,7 +132,7 @@ def _(mo, softmax_values):
 
 
 @app.cell
-def _(alt, mo, softmax_values):
+def _(alt, mo, softmax_values, sliders):
     def create_softmax_chart():
         data = [{"name": f"a{i}", "value": value} for i, value in enumerate(softmax_values)]
         chart = alt.Chart(alt.Data(values=data)).mark_bar().encode(
@@ -143,7 +142,10 @@ def _(alt, mo, softmax_values):
         return chart
 
     softmax_chart = create_softmax_chart()
-    mo.ui.altair_chart(softmax_chart)
+    mo.hstack([
+        mo.ui.altair_chart(softmax_chart),
+        mo.vstack(sliders)
+    ])
     return
 
 
