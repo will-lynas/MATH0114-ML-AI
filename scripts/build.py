@@ -93,7 +93,7 @@ def main() -> None:
     args = parser.parse_args()
 
     all_notebooks: List[str] = [
-            "notebooks/output-functions.py"
+            "marimo-notebooks/output-functions.py"
     ]
 
     # Export notebooks sequentially
