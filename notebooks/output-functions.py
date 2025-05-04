@@ -7,19 +7,9 @@ app = marimo.App(width="medium")
 @app.cell
 def _():
     import marimo as mo
-    return (mo,)
-
-
-@app.cell
-def _():
     import numpy as np
-    return (np,)
-
-
-@app.cell
-def _():
     import altair as alt
-    return (alt,)
+    return alt, mo, np
 
 
 @app.cell
@@ -45,6 +35,18 @@ def _(mo, sliders):
 
 
 @app.cell
+def _(mo):
+    mo.md(
+        """
+    ## Activations
+
+    This shows the raw activations of the ouput layer (the slider values) before any activation function has been applied.
+    """
+    )
+    return
+
+
+@app.cell
 def _(alt, max_val, mo, sliders):
     def create_activation_chart():
         data = [{"name": f"a{i}", "value": slider.value} for i, slider in enumerate(sliders)]
@@ -61,50 +63,15 @@ def _(alt, max_val, mo, sliders):
     mo.ui.altair_chart(activation_chart)
     return
 
-
 @app.cell
-def _(alt, mo, softmax_values):
-    def create_softmax_chart():
-        data = [{"name": f"a{i}", "value": value} for i, value in enumerate(softmax_values)]
-        chart = alt.Chart(alt.Data(values=data)).mark_bar().encode(
-            x='name:N',
-            y=alt.Y('value:Q', scale=alt.Scale(domain=(0, 1))),
-        ).properties(width=200, height=200)
-        return chart
+def _(sigmoid_values):
+    sigmoid_answers = [(f"a{i}",
+                        "Yes ✅" if value > 0.5 else "No ❌" )
+                       for (i,value) in enumerate(sigmoid_values)]
+    sigmoid_result = "\n".join(f"* {answer[0]}: **{answer[1]}**"
+                              for answer in sigmoid_answers)
+    return (sigmoid_result,)
 
-    softmax_chart = create_softmax_chart()
-    mo.ui.altair_chart(softmax_chart)
-    return
-
-
-@app.cell
-def _(alt, mo, sigmoid_values):
-    def create_sigmoid_chart():
-        data = [{"name": f"a{i}", "value": value} for i, value in enumerate(sigmoid_values)]
-        chart = alt.Chart(alt.Data(values=data)).mark_bar().encode(
-            x='name:N',
-            y=alt.Y('value:Q', scale=alt.Scale(domain=(0, 1))),
-        ).properties(width=200, height=200)
-
-        rule = alt.Chart(alt.Data(values=[{"y": 0.5}])).mark_rule(color='red', opacity=0.4).encode(y='y:Q')
-
-        return chart + rule
-
-    sigmoid_chart = create_sigmoid_chart()
-    mo.ui.altair_chart(sigmoid_chart)
-    return
-
-
-@app.cell
-def _(mo):
-    mo.md(
-        r"""
-    ## Activations
-
-    This shows the raw activations of the ouput layer (the slider values) before any activation function has been applied.
-    """
-    )
-    return
 
 
 @app.cell
@@ -128,19 +95,27 @@ def _(mo, sigmoid_result):
     )
     return
 
+@app.cell
+def _(alt, mo, sigmoid_values):
+    def create_sigmoid_chart():
+        data = [{"name": f"a{i}", "value": value} for i, value in enumerate(sigmoid_values)]
+        chart = alt.Chart(alt.Data(values=data)).mark_bar().encode(
+            x='name:N',
+            y=alt.Y('value:Q', scale=alt.Scale(domain=(0, 1))),
+        ).properties(width=200, height=200)
+
+        rule = alt.Chart(alt.Data(values=[{"y": 0.5}])).mark_rule(color='red', opacity=0.4).encode(y='y:Q')
+
+        return chart + rule
+
+    sigmoid_chart = create_sigmoid_chart()
+    mo.ui.altair_chart(sigmoid_chart)
+    return
 
 @app.cell
-def _(sigmoid_values):
-    sigmoid_answers = [(f"a{i}",
-                        "Yes ✅" if value > 0.5 else "No ❌" )
-                       for (i,value) in enumerate(sigmoid_values)]
-    sigmoid_result = "\n".join(f"* {answer[0]}: **{answer[1]}**"
-                              for answer in sigmoid_answers)
-    return (sigmoid_result,)
-
-
-@app.cell
-def _(mo, softmax_answer):
+def _(mo, softmax_values):
+    pairs = [(f"a{i}", value) for i, value in enumerate(softmax_values)]
+    softmax_answer = max(pairs, key=lambda x: x[1])[0]
     mo.md(
         f"""
     ## Softmax
@@ -158,10 +133,18 @@ def _(mo, softmax_answer):
 
 
 @app.cell
-def _(softmax_values):
-    _pairs = [(f"a{i}", value) for i, value in enumerate(softmax_values)]
-    softmax_answer = max(_pairs, key=lambda x: x[1])[0]
-    return (softmax_answer,)
+def _(alt, mo, softmax_values):
+    def create_softmax_chart():
+        data = [{"name": f"a{i}", "value": value} for i, value in enumerate(softmax_values)]
+        chart = alt.Chart(alt.Data(values=data)).mark_bar().encode(
+            x='name:N',
+            y=alt.Y('value:Q', scale=alt.Scale(domain=(0, 1))),
+        ).properties(width=200, height=200)
+        return chart
+
+    softmax_chart = create_softmax_chart()
+    mo.ui.altair_chart(softmax_chart)
+    return
 
 
 @app.cell
@@ -180,21 +163,11 @@ def _(np):
 
 
 @app.cell
-def _(np, sliders):
+def _(np, sigmoid, sliders, softmax):
     slider_values = np.array([slider.value for slider in sliders])
-    return (slider_values,)
-
-
-@app.cell
-def _(sigmoid, slider_values):
     sigmoid_values = sigmoid(slider_values)
-    return (sigmoid_values,)
-
-
-@app.cell
-def _(slider_values, softmax):
     softmax_values = softmax(slider_values)
-    return (softmax_values,)
+    return sigmoid_values, softmax_values
 
 
 if __name__ == "__main__":
