@@ -56,7 +56,7 @@ def _(alt, max_val, mo, sliders):
     mo.hstack([
         mo.ui.altair_chart(activation_chart),
         mo.vstack(sliders)
-    ])
+    ], wrap=True)
     return
 
 @app.cell
@@ -108,7 +108,7 @@ def _(alt, mo, sigmoid_values, sliders):
     mo.hstack([
         mo.ui.altair_chart(sigmoid_chart),
         mo.vstack(sliders)
-    ])
+    ], wrap=True)
     return
 
 @app.cell
@@ -145,7 +145,7 @@ def _(alt, mo, softmax_values, sliders):
     mo.hstack([
         mo.ui.altair_chart(softmax_chart),
         mo.vstack(sliders)
-    ])
+    ], wrap=True)
     return
 
 
