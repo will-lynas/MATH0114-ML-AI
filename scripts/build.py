@@ -92,9 +92,19 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    all_notebooks: List[str] = [
-            "marimo-notebooks/output-functions.py"
-    ]
+    all_notebooks: List[str] = []
+
+    directory = "marimo-notebooks"
+    dir_path = Path(directory)
+    if not dir_path.exists():
+        print(f"Warning: Directory not found: {dir_path}")
+        return
+
+    all_notebooks.extend(str(path) for path in dir_path.rglob("*.py"))
+
+    if not all_notebooks:
+        print("No notebooks found!")
+        return
 
     # Export notebooks sequentially
     for nb in all_notebooks:
