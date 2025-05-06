@@ -165,8 +165,8 @@ def _(alpha_slider, beta_slider, k_slider, mo, n_slider):
 
         $$
          \\mathbb{{E}}[p] = \\frac{{\\alpha + k}}{{\\alpha + \\beta + n - k}}
-          = \\frac{{{alpha_slider.value} + {k_slider.value}}}{{{alpha_slider.value} + {beta_slider.value} + {n_slider.value} - {k_slider.value}}}
-          = {((alpha_slider.value + k_slider.value) / (alpha_slider.value + beta_slider.value + n_slider.value - k_slider.value)):.3f}
+          = \\frac{{{alpha_slider.value} + {k_slider.value}}}{{{alpha_slider.value} + {beta_slider.value} + {n_slider.value}}}
+          = {((alpha_slider.value + k_slider.value) / (alpha_slider.value + beta_slider.value + n_slider.value)):.3f}
         $$
          """)
     return
