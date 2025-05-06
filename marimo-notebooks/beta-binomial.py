@@ -182,8 +182,13 @@ def _(mo):
 @app.cell
 def _(mo):
     mo.md(r"""
-        Here's all the sliders at once, so the text doesn't get in the way:
+        Here are the sliders and the graph again, without the text in the way:
         """)
+    return
+
+@app.cell
+def _(mo, k_slider, n_slider, alpha_slider, beta_slider):
+    mo.vstack([alpha_slider, beta_slider, n_slider, k_slider])
     return
 
 
