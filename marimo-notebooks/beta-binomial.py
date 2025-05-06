@@ -179,6 +179,13 @@ def _(mo):
         """)
     return
 
+@app.cell
+def _(mo):
+    mo.md(r"""
+        Here's all the sliders at once, so the text doesn't get in the way:
+        """)
+    return
+
 
 if __name__ == "__main__":
     app.run()
