@@ -171,6 +171,14 @@ def _(alpha_slider, beta_slider, k_slider, mo, n_slider):
          """)
     return
 
+@app.cell
+def _(mo):
+    mo.md(r"""
+        Notice, the higher the value of $n$, the more confident we are about the value of $p$.
+          This is reflected in a tighter posterior distribution.
+        """)
+    return
+
 
 if __name__ == "__main__":
     app.run()
