@@ -36,7 +36,7 @@ def _(mo, alt, alpha_slider, beta_slider, np, stats):
             x='x:Q',
             y=alt.Y('pdf:Q', scale=alt.Scale(domain=[0, 6])),
         ).properties(
-            title=f"Beta Distribution",
+            title=f"Beta Distribution - Prior",
             config=alt.Config(axis=alt.AxisConfig(grid=False))
         )
         
