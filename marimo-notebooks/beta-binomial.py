@@ -63,6 +63,21 @@ def _(mo, alt, alpha_slider, beta_slider, np, stats):
     return
 
 @app.cell
+def _(mo, alpha_slider, beta_slider):
+    mo.md(f"""
+        The **Expected Value** of the Beta distribution is given by
+         
+        $$
+         \\mathbb{{E}}[p] = \\frac{{\\alpha}}{{\\alpha + \\beta}}
+          = \\frac{{{alpha_slider.value}}}{{{alpha_slider.value} + {beta_slider.value}}}
+          = {alpha_slider.value / (alpha_slider.value + beta_slider.value):.3f}
+        $$
+        
+        So this represents our single point estimate of $p$ before we have observed any data.
+         """)
+
+
+@app.cell
 def _(mo):
     n_slider = mo.ui.slider(1, 100, step=1, value=10, label="n")
     n_slider
