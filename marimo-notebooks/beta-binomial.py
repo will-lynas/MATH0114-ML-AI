@@ -75,6 +75,12 @@ def _(mo, alpha_slider, beta_slider):
         
         So this represents our single point estimate of $p$ before we have observed any data.
          """)
+    
+@app.cell
+def _(mo):
+    mo.md(r"""
+        Now, let's observe some data by doing a Binomial experiment with $n$ trials.
+        """)
 
 
 @app.cell
@@ -82,6 +88,14 @@ def _(mo):
     n_slider = mo.ui.slider(1, 100, step=1, value=10, label="n")
     n_slider
     return n_slider
+
+@app.cell
+def _(mo, n_slider, alpha_slider, beta_slider):
+    mean_p = alpha_slider.value / (alpha_slider.value + beta_slider.value)
+    mo.md(f"""
+        With  $n = {n_slider.value}$ trials, we expect to see
+        $n * \\mathbb{{E}}[p] = {n_slider.value} * {mean_p:.3f} = {n_slider.value * mean_p:.1f}$ successes, based on our prior belief.
+        """)
 
 @app.cell
 def _(mo, n_slider):
