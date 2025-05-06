@@ -104,6 +104,20 @@ def _(mo, n_slider):
     return k_slider
 
 
+@app.cell
+def _(mo, n_slider, k_slider):
+    mo.md(f"""
+        What if, instead, we observe $k = {k_slider.value}$ successes?
+        
+        Well, we can use Bayes' theorem to update our **prior** belief about $p$, using the observed data, to obtain a **posterior** belief.
+        
+        In the case of a $Beta(\\alpha, \\beta)$ prior, with a Binomial likelihood, the posterior is also a Beta distribution:
+        
+        $$
+        p \\sim \\text{{Beta}}(\\alpha + k, \\beta + n - k)
+        $$
+        """
+        )
 
 
 @app.cell
