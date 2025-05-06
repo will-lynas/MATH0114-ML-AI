@@ -155,7 +155,7 @@ def _(alpha_slider, alt, beta_slider, k_slider, mo, n_slider, np, stats):
         return chart
 
     mo.ui.altair_chart(posterior_chart())
-    return
+    return posterior_chart
 
 
 @app.cell
@@ -189,6 +189,11 @@ def _(mo):
 @app.cell
 def _(mo, k_slider, n_slider, alpha_slider, beta_slider):
     mo.vstack([alpha_slider, beta_slider, n_slider, k_slider])
+    return
+
+@app.cell
+def _(mo, posterior_chart):
+    mo.ui.altair_chart(posterior_chart())
     return
 
 
