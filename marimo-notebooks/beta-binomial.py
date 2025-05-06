@@ -164,7 +164,7 @@ def _(alpha_slider, beta_slider, k_slider, mo, n_slider):
         After seeing the data, the new **Expected Value** of $p$ is given by
 
         $$
-         \\mathbb{{E}}[p] = \\frac{{\\alpha + k}}{{\\alpha + \\beta + n - k}}
+         \\mathbb{{E}}[p] = \\frac{{\\alpha + k}}{{\\alpha + \\beta + n}}
           = \\frac{{{alpha_slider.value} + {k_slider.value}}}{{{alpha_slider.value} + {beta_slider.value} + {n_slider.value}}}
           = {((alpha_slider.value + k_slider.value) / (alpha_slider.value + beta_slider.value + n_slider.value)):.3f}
         $$
