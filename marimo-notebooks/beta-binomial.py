@@ -42,6 +42,15 @@ def _(mo, alt, alpha_slider, beta_slider, np, stats):
     mo.ui.altair_chart(chart)
     return
 
+@app.cell
+def _(mo):
+    n_slider = mo.ui.slider(0, 100, step=1, value=10, label="n")
+    k_slider = mo.ui.slider(0, 100, step=1, value=5, label="k")
+    mo.vstack([n_slider, k_slider])
+    return n_slider, k_slider
+
+
+
 
 if __name__ == "__main__":
     app.run()
