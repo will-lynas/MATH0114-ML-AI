@@ -12,6 +12,23 @@ def _():
     import scipy.stats as stats
     return mo, np, alt, stats
 
+@app.cell
+def _(mo):
+    mo.md(r"""
+         Suppose we are modeling some Binomial process. The probability of success $p$ is unknown to us. It is a latent variable.
+         We wish to estimate $p$.
+         
+         At this stage, we have observed no data, but from our knowledge of the process, we have a prior belief about the value of $p$.
+        
+         Let's say we believe $p$ is distributed according to a Beta distribution with parameters $\alpha$ and $\beta$. That is
+         
+         $$
+         p \sim \text{Beta}(\alpha, \beta)
+         $$
+         
+          """)
+
+
 
 @app.cell
 def _(mo):
